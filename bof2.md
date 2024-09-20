@@ -1,4 +1,4 @@
-# Buffer Overflow Attack on `bof1.c`
+# Buffer Overflow Attack on `bof2.c`
 
 ```c
 #include <stdlib.h>
@@ -28,6 +28,16 @@ void main(int argc, char *argv[])
 The target is to change the value of the `check` variable by overflowing the `buf[40]` buffer.
 
 Although this program uses `fgets()`, which limits the input size, the vulnerability is that `fgets()` is allowing 45 characters, which is larger than the `[buf]`'s size of 40 characters. This overflow enables us to overwrite adjacent memory, including the `check` variable.
+
+## Compile the program
+
+Similar to [bof1.c](./bof1.md), we compile the source code with `-fno-stack-protector` to disable the stack protector.
+
+    gcc -g bof2.c -o bof2.o -fno-stack-protector -mpreferred-stack-boundary=2
+
+![gcc -g bof2.c -o bof2.o](./img/bof2/gcc.png)
+
+A new file `bof2.o` is created.
 
 ## Stack Frame of `main()`
 
