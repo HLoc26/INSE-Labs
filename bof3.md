@@ -26,7 +26,7 @@ void main()
 }
 ```
 
-This program has a vulnerability similar to the previous example in `bof2.c`. Although it uses `fgets()` to limit input size, the input limit (133 characters) exceeds the size of the `buf[128]` buffer, making it vulnerable to a buffer overflow attack.
+This program has a vulnerability similar to the previous example ([`bof2.c`](bof2.md)). Although it uses `fgets()` to limit input size, the input limit (133 characters) exceeds the size of the `buf[128]` buffer, making it vulnerable to a buffer overflow attack.
 
 The target is to exploit this vulnerability by modifying the `func` pointer, which initially points to the `sup()` function, to instead point to the `shell()` function.
 
