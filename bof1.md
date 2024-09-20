@@ -1,4 +1,4 @@
-# Attack `bof1.c`
+# Buffer Overflow Attack on `bof1.c`
 
 ```c++
 #include <stdio.h>
