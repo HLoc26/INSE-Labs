@@ -38,6 +38,7 @@ As with previous examples ([bof1.c](./bof1.md) and [bof2.c](./bof2.md)), we comp
 gcc -g bof3.c -o bof3.o -fno-stack-protector -mpreferred-stack-boundary=2
 ```
 
+![gcc](./img/bof3/gcc.png)
 A new executable file, `bof3.o`, is created.
 
 ## Stack Frame of `main()` Function
