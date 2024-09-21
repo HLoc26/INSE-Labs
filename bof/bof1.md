@@ -33,7 +33,7 @@ We compile the source code with `-fno-stack-protector` to disable the stack prot
 
     gcc -g bof1.c -o bof1.o -fno-stack-protector -mpreferred-stack-boundary=2
 
-![gcc -g bof1.c -o bof1.o](./img/bof1/gcc.png)
+![gcc -g bof1.c -o bof1.o](../img/bof1/gcc.png)
 
 A new file `bof1.o` is created.
 
@@ -60,7 +60,7 @@ In order to call the function `secretFunc()`, we need to know its address. We ca
 objdump -d bof1.o | grep secretFunc
 ```
 
-![objdump -d bof1.o | grep secretFunc](./img/bof1/objdump.png)
+![objdump -d bof1.o | grep secretFunc](../img/bof1/objdump.png)
 
 The address of the function is `0x0804846b`. When writing this address to the stack, we need to represent it in **Little Endian** format, meaning it is reversed in memory (`6b 84 04 08`)
 
@@ -70,7 +70,7 @@ We will overflow the stack frame of the `vuln()` function, specifically the loca
 
 ### Stack frame of `vuln()`:
 
-![vuln()](./img/bof1/stackframe.png)
+![vuln()](../img/bof1/stackframe.png)
 
 We need to input a large amount of charactors so that it exceed the 200 bytes char array plus 4 bytes of `ebp`, and overwrite the value of `eip` so that it will call the function `secretFunc()` instead of returning to `main()`.
 
@@ -98,6 +98,6 @@ echo $(python -c "print('a' * 200 + 'b' * 4 + '\x6b\x84\x04\x08')") | ./bof1.o 1
 
 ### Result:
 
-![result](./img/bof1/result.png)
+![result](../img/bof1/result.png)
 
 We got the message `Congratulation!`, which means we have successfully redirect execution to `secretFunc()`!

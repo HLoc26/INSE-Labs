@@ -35,13 +35,13 @@ Similar to [bof1.c](./bof1.md), we compile the source code with `-fno-stack-prot
 
     gcc -g bof2.c -o bof2.o -fno-stack-protector -mpreferred-stack-boundary=2
 
-![gcc -g bof2.c -o bof2.o](./img/bof2/gcc.png)
+![gcc -g bof2.c -o bof2.o](../img/bof2/gcc.png)
 
 A new file `bof2.o` is created.
 
 ## Stack Frame of `main()`
 
-![stack frame](./img/bof2/stackframe.png)
+![stack frame](../img/bof2/stackframe.png)
 
 The `buf` array is allocated 40 bytes on the stack, followed by the `check` variable. Since `fgets()` allows us to input up to 45 characters, we can overflow the `buf` array and overwrite `check`.
 
@@ -68,7 +68,7 @@ echo $(python -c "print('a' * 40 + 'ffff')") | ./bof2
 
 ### Result:
 
-![test 1](./img/bof2/test.png)
+![test 1](../img/bof2/test.png)
 
 We received the message, `You are on the right way!`, which indicates that we successfully changed the value of `check`.
 
@@ -89,6 +89,6 @@ echo $(python -c "print('a' * 40 + '\xef\xbe\xad\xde')") | ./bof2
 
 ### Result:
 
-![result](./img/bof2/result.png)
+![result](../img/bof2/result.png)
 
 The program now outputs, `Yeah! You win!`, and the value of `check` is displayed as `0xdeadbeef`. This confirms that we have successfully exploited the buffer overflow to change the value of `check` and trigger the desired behavior.

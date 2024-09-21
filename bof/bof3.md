@@ -26,7 +26,7 @@ void main()
 }
 ```
 
-This program has a vulnerability similar to the previous example ([`bof2.c`](bof2.md)). Although it uses `fgets()` to limit input size, the input limit (133 characters) exceeds the size of the `buf[128]` buffer, making it vulnerable to a buffer overflow attack.
+This program has a vulnerability similar to the previous example in `bof2.c`. Although it uses `fgets()` to limit input size, the input limit (133 characters) exceeds the size of the `buf[128]` buffer, making it vulnerable to a buffer overflow attack.
 
 The target is to exploit this vulnerability by modifying the `func` pointer, which initially points to the `sup()` function, to instead point to the `shell()` function.
 
@@ -38,14 +38,13 @@ As with previous examples ([bof1.c](./bof1.md) and [bof2.c](./bof2.md)), we comp
 gcc -g bof3.c -o bof3.o -fno-stack-protector -mpreferred-stack-boundary=2
 ```
 
-![gcc](./img/bof3/gcc.png)
 A new executable file, `bof3.o`, is created.
 
 ## Stack Frame of `main()` Function
 
 Here’s the stack frame in the `main()` function, with `buf[128]` and the function pointer `func`:
 
-![main() stack frame](./img/bof3/stackframe.png)
+![main() stack frame](../img/bof3/stackframe.png)
 
 ## Finding the Address of the `shell()` Function
 
@@ -57,12 +56,12 @@ objdump -d bof3.o | grep shell
 
 ### Result
 
-![address of shell()](./img/bof3/objdump.png)
+![address of shell()](../img/bof3/objdump.png)
 The address of the `shell()` function is `0x0804845b`. We will input this address in reverse order as `5b 84 04 08` (Little Endian format).
 
 After our attack, the stack frame will look like this:
 
-![new stack frame](./img/bof3/new_stackframe.png)
+![new stack frame](../img/bof3/new_stackframe.png)
 
 The value of the function pointer `*func` should now be `0x0804845b`, pointing to `shell()`.
 
@@ -94,6 +93,6 @@ echo $(python -c "print('a' * 128 + '\x5b\x84\x04\x08')") | ./bof3.o
 
 ### Result:
 
-![Result](./img/bof3/result.png)
+![Result](../img/bof3/result.png)
 
 The message confirms that we successfully redirected execution to the `shell()` function, demonstrating a successful buffer overflow attack.
