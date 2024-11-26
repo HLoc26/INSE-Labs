@@ -226,13 +226,9 @@ After (from `0x5F` to `0x53`):
 
 Command: `hexedit large_ofb.enc`
 
-Before:
+![Untitled](https://github.com/user-attachments/assets/cf0dcbf7-33a8-4d2a-8b78-c16c9e15676a)
 
-![Untitled](https://github.com/user-attachments/assets/8f586e42-d7ff-4a54-a665-22385c432928)
-
-After (from `0x5F` to `0x53`):
-
-![Untitled](https://github.com/user-attachments/assets/cd3cbd20-6598-473c-b715-0123708a23a8)
+![Untitled](https://github.com/user-attachments/assets/fc71d0b5-7f10-4371-ae3b-a6c9f5abe9f6)
 
 
 ## Decrypt corrupted files
