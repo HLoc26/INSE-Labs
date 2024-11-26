@@ -169,6 +169,8 @@ Create a text file at least 56 bytes.
 I used Python (in my own machine) to print 56 characters, then saved it into `large.txt` in the VM.
 ![image](https://github.com/user-attachments/assets/1edf8f0d-7c05-4105-bb12-9a84426e2f54)
 
+### Generate 
+
 ## Question 1:
 Encrypt the file with aes-256 cipher in CFB and OFB modes. How do you evaluate both cipher as far as error propagation and adjacent plaintext blocks are concerned. 
 ### Answer 1:
@@ -184,7 +186,7 @@ openssl enc -aes-256-cfb -in large.txt -out large_cfb.enc -k secretpassword -iv 
 ```
 Result:
 
-![image](https://github.com/user-attachments/assets/df999422-26d1-4cae-8fe1-322d47bff012)
+![image](https://github.com/user-attachments/assets/54e838cf-b651-4400-9407-2ee0ef13ca4b)
 
 - Error propagation: In CFB mode, if a single byte of the ciphertext is corrupted, it affects the decryption of that corrupted byte and the following byte only. The error propagates only to the extent of the next byte.
 - Adjacent plaintext blocks: CFB mode operates on segments of the plaintext, where the size of segments is often the block size of the cipher (like 128 bits for AES). Corruption in one segment does not affect all subsequent segments.
@@ -196,7 +198,7 @@ openssl enc -aes-256-ofb -in large.txt -out large_ofb.enc -k secretpassword -iv 
 
 Result:
 
-![image](https://github.com/user-attachments/assets/8ebc1e88-5a70-43c1-8b66-3660d6b76d33)
+![image](https://github.com/user-attachments/assets/b9f8df66-2b0e-49ae-a415-2a819db450f0)
 
 - Error propagation: In OFB mode, a single-byte error in the ciphertext only affects the decryption of that particular byte. The error does not propagate, making OFB more resilient to errors compared to CFB.
 - Adjacent plaintext blocks: OFB mode is a stream cipher mode, so corruption in the ciphertext does not impact adjacent plaintext blocks. Each byte is independently encrypted using the keystream.
@@ -234,4 +236,14 @@ After (from `0x5F` to `0x53`):
 
 
 ## Decrypt corrupted files
+
+Command:
+```
+openssl enc -d <algorithm> -in <corrupted-file> -out <output-file> -k <secret-key> -iv <iv>
+```
+
+**Decrypting large_cfb.enc**:
+```
+openssl enc -d -aes-256-cfb -in large_cfb.enc -out cfb.txt -k secretpassword -iv 123
+```
 
