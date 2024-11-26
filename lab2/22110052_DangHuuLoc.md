@@ -182,7 +182,7 @@ openssl enc <algorithm> -in <input-file> -out <output-file> -k <passkey> -iv <iv
 
 **Encrypt the file with AES-256 in CFB mode**
 ```
-openssl enc -aes-256-cfb -in large.txt -out message_ofb.enc -k secretpassword -iv 123
+openssl enc -aes-256-cfb -in large.txt -out message_cfb.enc -k secretpassword -iv 123
 ```
 Result:
 
@@ -240,6 +240,6 @@ openssl enc -d <algorithm> -in <corrupted-file> -out <output-file> -k <secret-ke
 
 **Decrypting large_cfb.enc**:
 ```
-openssl enc -d -aes-256-cfb -in large_cfb.enc -out cfb.txt -k secretpassword -iv 123
+openssl enc -d -aes-256-cfb -in message_cfb.enc -out cfb.txt -k secretpassword -iv 123
 ```
 
