@@ -215,23 +215,13 @@ Command: `hexedit message_ofb.enc`
 
 Before:
 
-![Untitled](https://github.com/user-attachments/assets/21adfac3-3868-42fe-a187-4c756c4e6ecc)
-
-After (from `0x5F` to `0x53`):
-
-![Untitled](https://github.com/user-attachments/assets/b830442f-5200-4723-8ec4-0e13af0f3994)
-
-
-## Modify the `large_ofc.enc` file
-
-Command: `hexedit message_ofb.enc`
-
 ![Untitled](https://github.com/user-attachments/assets/cf0dcbf7-33a8-4d2a-8b78-c16c9e15676a)
+
+After:
 
 ![Untitled](https://github.com/user-attachments/assets/fc71d0b5-7f10-4371-ae3b-a6c9f5abe9f6)
 
-
-## Decrypt corrupted files
+## Decrypt
 
 Command:
 ```
