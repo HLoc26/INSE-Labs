@@ -182,7 +182,7 @@ openssl enc <algorithm> -in <input-file> -out <output-file> -k <passkey> -iv <iv
 
 **Encrypt the file with AES-256 in CFB mode**
 ```
-openssl enc -aes-256-cfb -in large.txt -out large_cfb.enc -k secretpassword -iv 123
+openssl enc -aes-256-cfb -in large.txt -out message_ofb.enc -k secretpassword -iv 123
 ```
 Result:
 
@@ -193,7 +193,7 @@ Result:
 
 **Encrypt the file with AES-256 in OFB mode**:
 ```
-openssl enc -aes-256-ofb -in large.txt -out large_ofb.enc -k secretpassword -iv 123
+openssl enc -aes-256-ofb -in large.txt -out message_ofb.enc -k secretpassword -iv 123
 ```
 
 Result:
@@ -211,7 +211,7 @@ Decrypt corrupted file, watch the result and give your comment on Chaining depen
 For this question, I will install `hexedit` to modify the encrypted file: `apt install hexedit`
 
 ## Modify the `large_cfb.enc` file
-Command: `hexedit large_cfb.enc`
+Command: `hexedit message_ofb.enc`
 
 Before:
 
@@ -224,7 +224,7 @@ After (from `0x5F` to `0x53`):
 
 ## Modify the `large_ofc.enc` file
 
-Command: `hexedit large_ofb.enc`
+Command: `hexedit message_ofb.enc`
 
 ![Untitled](https://github.com/user-attachments/assets/cf0dcbf7-33a8-4d2a-8b78-c16c9e15676a)
 
